@@ -9,3 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: echo ${{ github.event.client_payload.ref }}
+      - name: Get the version
+          id: get_version
+          run: echo ::set-output name=VERSION::${github.event.client_payload.ref/refs\/tags\//}
