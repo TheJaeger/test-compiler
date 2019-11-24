@@ -1,0 +1,13 @@
+name: Receive Release Dispatch
+
+on:
+  repository_dispatch:
+    types: [test-release]
+jobs:
+  autopep8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.client_payload }}
+      - run: echo ${{ github.event.client_payload }}
