@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: echo ${{ github.ref }}
+      - run: echo ${{ github.client-payload.github.ref }}
 #       - name: Get the version
 #         id: get_version
 #         run: echo ::set-output name=VERSION::${${{ github.event.client_payload.ref }}/refs\/tags\//}
