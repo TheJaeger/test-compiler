@@ -16,9 +16,9 @@ jobs:
       - name: Branch name
         id: branch_name
         run: |
-          echo ::set-output name=SOURCE_NAME::${${{ github.event.client_payload.ref#refs/*/ }}}
-          echo ::set-output name=SOURCE_BRANCH::${${{ github.event.client_payload.ref#refs/heads/ }}}
-          echo ::set-output name=SOURCE_TAG::${${{ github.event.client_payload.ref#refs/tags/ }}}
+          echo ::set-output name=SOURCE_NAME::${${{ github.event.client_payload.ref }}#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${${{ github.event.client_payload.ref }}#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${${{ github.event.client_payload.ref }}#refs/tags/}
       - name: Build base image
         run: |
           echo $SOURCE_NAME
