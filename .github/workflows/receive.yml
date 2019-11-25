@@ -9,7 +9,22 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: echo ${{ github.event.client_payload.ref }}
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${${{ github.event.client_payload.ref }}/refs\/tags\//}
-      - run: echo $VERSION
+#       - name: Get the version
+#         id: get_version
+#         run: echo ::set-output name=VERSION::${${{ github.event.client_payload.ref }}/refs\/tags\//}
+#       - run: echo $VERSION
+      - name: Branch name
+        id: branch_name
+        run: |
+          echo ::set-output name=SOURCE_NAME::${${{ github.event.client_payload.ref }}#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${${{ github.event.client_payload.ref }}#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${${{ github.event.client_payload.ref }}#refs/tags/}
+      - name: Build base image
+        run: |
+          echo $SOURCE_NAME
+          echo $SOURCE_BRANCH
+          echo $SOURCE_TAG          
+        env:
+          SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
+          SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
+          SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
