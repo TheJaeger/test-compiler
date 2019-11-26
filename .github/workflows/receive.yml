@@ -16,7 +16,7 @@ jobs:
       - name: Branch name
         id: branch_name
         run: |
-          echo ::set-output name=RELEASE_TAG::${${{ github.event.client_payload.github.ref##*/ }}}
+          echo ::set-output name=RELEASE_TAG::${${{ github.event.client_payload.github.ref }##*/}}
           echo ::set-output name=RELEASE_TYPE::${{ github.event.client_payload.github.event.action }}
       - name: Build base image
         run: |
