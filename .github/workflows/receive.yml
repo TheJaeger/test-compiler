@@ -22,7 +22,9 @@ jobs:
       - name: Build base image
         run: |
           echo $RELEASE_TAG
+          echo $RELEASE_NAME
           echo $RELEASE_TYPE       
         env:
           RELEASE_TAG: ${{ steps.branch_name.outputs.RELEASE_TAG }}
+          RELEASE_NAME: ${{ steps.branch_name.outputs.RELEASE_NAME }}
           RELEASE_TYPE: ${{ steps.branch_name.outputs.RELEASE_TYPE }}
