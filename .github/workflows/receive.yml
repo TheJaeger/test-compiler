@@ -1,4 +1,4 @@
-name: Receive Release Dispatch
+name: Receive Payload
 
 on:
   repository_dispatch:
@@ -8,12 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: echo ${{ github.event.client_payload.github.ref }}
-#       - name: Get the version
-#         id: get_version
-#         run: echo ::set-output name=VERSION::${${{ github.event.client_payload.ref }}/refs\/tags\//}
-#       - run: echo $VERSION
-      - name: Branch name
+      - name: Read Payload
         id: branch_name
         run: |
           echo ::set-output name=RELEASE_TAG::${{ github.event.client_payload.github.event.release.tag_name }}
@@ -27,7 +22,7 @@ jobs:
             release=Stable
           fi
           echo ::set-output name=RELEASE_TYPE::${release}
-      - name: Build base image
+      - name: Create Variables
         run: |
           echo $RELEASE_TAG
           echo $RELEASE_NAME
