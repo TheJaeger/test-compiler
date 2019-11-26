@@ -18,7 +18,7 @@ jobs:
         run: |
           echo ::set-output name=RELEASE_TAG::${{ github.event.client_payload.github.event.release.tag_name }}
           echo ::set-output name=RELEASE_NAME::${{ github.event.client_payload.github.event.release.name }}
-          if [${{ github.event.client_payload.github.event.release.prerelease }}]
+          if [ ${{ github.event.client_payload.github.event.release.prerelease }} ]
           then
             echo "Prerelease"
             echo ::set-output name=RELEASE_TYPE::${echo "Prerelease"}
