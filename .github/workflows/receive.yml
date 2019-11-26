@@ -18,7 +18,14 @@ jobs:
         run: |
           echo ::set-output name=RELEASE_TAG::${{ github.event.client_payload.github.event.release.tag_name }}
           echo ::set-output name=RELEASE_NAME::${{ github.event.client_payload.github.event.release.name }}
-          echo ::set-output name=RELEASE_TYPE::${{ github.event.client_payload.github.event.action }}
+          if [${{ github.event.client_payload.github.event.release.prerelease }}]
+          then
+            echo "Prerelease"
+            echo ::set-output name=RELEASE_TYPE::${echo "Prerelease"}
+          else
+            echo "Stable"
+            echo ::set-output name=RELEASE_TYPE::${echo "Stable"}
+          fi
       - name: Build base image
         run: |
           echo $RELEASE_TAG
