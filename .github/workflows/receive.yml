@@ -22,7 +22,6 @@ jobs:
           then
             echo "Prerelease"
             release=Pre-release
-            echo ::set-output name=RELEASE_TYPE::${ echo Pre-release }
           else
             echo "Stable"
             release=Stable
