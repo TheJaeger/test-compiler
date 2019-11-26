@@ -16,15 +16,18 @@ jobs:
       - name: Branch name
         id: branch_name
         run: |
-          echo ::set-output name=SOURCE_NAME::${echo ${{ github.event.client_payload.ref }}#refs/*/}
-          echo ::set-output name=SOURCE_BRANCH::${echo ${{ github.event.client_payload.ref }}#refs/heads/}
-          echo ::set-output name=SOURCE_TAG::${echo ${{ github.event.client_payload.ref }}#refs/tags/}
+          echo ::set-output name=SOURCE_NAME::${${{ github.event.client_payload.github.ref }}#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${${{ github.event.client_payload.github.ref }}#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${${{ github.event.client_payload.github.ref }}#refs/tags/}
+          echo ::set-output name=RELEASE_TYPE::${{ github.event.client_payload.github.event.action }}
       - name: Build base image
         run: |
           echo $SOURCE_NAME
           echo $SOURCE_BRANCH
-          echo $SOURCE_TAG          
+          echo $SOURCE_TAG   
+          echo $RELEASE_TYPE       
         env:
           SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
           SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
           SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+          RELEASE_TYPE: ${{ steps.branch_name.outputs.RELEASE_TYPE }}
